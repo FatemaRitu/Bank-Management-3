@@ -1,0 +1,45 @@
+﻿@model MVCBank.Models.Branch
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<h2 class="mt-3">
+    Branch Details
+</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchPhone)
+        </dd>
+
+    </dl>
+</div>
+<p class="btn btn-default">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

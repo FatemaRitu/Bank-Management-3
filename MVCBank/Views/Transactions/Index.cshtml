@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MVCBank.Models.Transaction>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mt-3">Transactions Information</u></h2>
+
+<a class="btn btn-info float-right"
+   href="/Transactions/Create">Add New Transaction</a>
+<hr />
+
+<table class="table table-bordered table-sm">
+    <tr class="bg-info text-light tr_font">
+        <th>SqNo.</th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deposit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Withdraw)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Branch.BranchName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @{ int count = 0;
+        foreach (var item in Model)
+        {
+            count++;
+            <tr class="tr_font">
+                <td>@count</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deposit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Withdraw)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Branch.BranchName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+            }
+        }
+
+    </table>

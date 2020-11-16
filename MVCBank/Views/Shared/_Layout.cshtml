@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - New Bank Application</title>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<link href="~/Content/jquery-ui.css" rel="stylesheet" />*@
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#7fdaf6">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Bank Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <hr />
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li>
+                                    @Html.ActionLink("Branch", "Index", "Branches")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Customer", "Index", "Customer")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Employee", "Index", "Employees1")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Account", "Index", "Accounts")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Transaction", "Index", "Transactions")
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    @Html.ActionLink("Branch", "List", "Branches")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Customer", "List", "Customer")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Employee", "List", "Employees1")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Account", "List", "Accounts")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Transaction", "List", "Transactions")
+                                </li>
+                            }
+                            <li>
+                                @Html.ActionLink("Logout", "Logout", "User")
+                            </li>
+
+                            <span class="navbar-text text-info">
+                                Welcome : <u class="font-weight-bold">@User.Identity.Name</u>
+                            </span>
+                        }
+                        else
+                        {
+                            <li>
+                                @Html.ActionLink("Registration", "Register", "User")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Login", "Login", "User")
+                            </li>
+                        }
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+
+        @RenderBody()
+
+    </div>
+</body>
+</html>

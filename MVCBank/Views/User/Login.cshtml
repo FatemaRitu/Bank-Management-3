@@ -1,0 +1,39 @@
+﻿@model MVCBank.Models.User
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<div class="card-body embed-responsive-item" style="width:auto; padding-left:100px;">
+    <h2 class="card-body mx-auto bg-primary mb-0 text-center text-light font-weight-bold" style="max-width: 340px; height:60px;padding-top:10px; margin-top: 80px">BANK APPLICATION</h2>
+    <article class="card-body mx-auto mb-3" style="max-width: 340px; height:300px; background-color:#ddd">
+        <form method="post" action="/User/Login" style="width:300px;padding-top:10px; padding-left:20px;">
+            <h4 class="text-danger">@ViewBag.Message</h4>
+            <div class="form-group input-group">
+                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="input-group-prepend">
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <input name="UserName" class="form-control" placeholder="UserName..." type="text" required>
+            </div>
+            <div class="form-group input-group">
+              @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="input-group-append">
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </div>
+                <input name="Password" class="form-control" autocomplete="off" placeholder="Password..." type="password" required>
+            </div>
+
+            <div class="form-group">
+                <input class="btn btn-primary btn-block" type="submit" name="Login" value="Login" />
+            </div>
+            <p class="text-center">Have an account.? <a href="#"> Login</a> </p>
+        </form>
+    </article>
+</div>
+

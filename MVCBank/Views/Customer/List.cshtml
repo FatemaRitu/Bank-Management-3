@@ -1,0 +1,83 @@
+﻿@model PagedList.PagedList<MVCBank.ViewModels.CustomerViewModel>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<br />
+<br />
+<br />
+<h2 class="mt-3">Customers All Information</h2>
+
+@using (Html.BeginForm("List", "Customer"))
+{<p>
+        <h4 class="mt-3"> Find By Customer Name:</h4>
+
+        @Html.TextBox("SearchString")
+
+        <input type="submit" value="Search Customer" class="btn btn-primary" />
+    </p>
+
+}
+<hr />
+<table class="table table-bordered table-sm">
+    <tr class="bg-info text-light tr_font">
+        <th>SqNo.</th>
+        <th>
+            Customer Id
+        </th>
+        <th>
+            Customer Name
+        </th>
+        <th>
+            Date of Birth
+        </th>
+        <th>
+            Email Address
+        </th>
+        <th>
+            Image Name
+        </th>
+        <th>
+            Image
+        </th>
+    </tr>
+
+    @{ int count = 0;
+        foreach (var item in Model)
+        {
+            count++;
+            <tr class="tr_font">
+                <td>@count</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+
+                <td>
+                    @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.DOB))
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageName)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.ImageUrl)" alt=@item.ImageName width="40" height="40" />
+
+                </td>
+            </tr>
+            }
+        }
+    </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("List",
+    new { page, SortOrder = ViewBag.CurrentSort, CurrentFilter = ViewBag.CurrentFilter }))
+

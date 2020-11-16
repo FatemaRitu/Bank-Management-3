@@ -1,0 +1,67 @@
+﻿@model IEnumerable<MVCBank.Models.Account>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<h2 class="mt-3">
+    Accounts Information
+</h2>
+<a class="btn btn-info float-right"
+   href="/Accounts/Create">Add New Account</a>
+<hr />
+
+<table class="table table-bordered table-sm">
+    <tr class="bg-info text-light tr_font">
+        <th>SqNo.</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Branch.BranchName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpeningBalance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @{ int count = 0;
+        foreach (var item in Model)
+        {
+            count++;
+            <tr class="tr_font">
+                <td>@count</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Branch.BranchName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpeningBalance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AccountId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.AccountId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AccountId })
+                </td>
+            </tr>
+        }
+    }
+</table>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MVCBank.Models.Account>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<h2 class="mt-3">Acoounts All Information</h2>
+<table class="table table-bordered table-sm">
+    <tr class="bg-info text-light tr_font">
+        <th>
+            SqNo.
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Branch.BranchName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpeningBalance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+    </tr>
+    @{ int count = 0;
+        foreach (var item in Model)
+        {
+            count++;
+            <tr class="tr_font">
+                <td>@count</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Branch.BranchName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpeningBalance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+            </tr>
+            }
+        }
+    </table>

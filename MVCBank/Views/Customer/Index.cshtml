@@ -1,0 +1,121 @@
+﻿@model PagedList.PagedList<MVCBank.ViewModels.CustomerViewModel>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<br />
+<br />
+<br />
+<h2 class="mt-3">Customers Information</h2>
+
+<a class="btn btn-info float-right"
+   href="/Customer/Create">Add New Customer</a>
+@using (Html.BeginForm("Index", "Customer", FormMethod.Get))
+{
+    <p>
+        <h4 class="mt-3"> Find By Customer Name:</h4>
+
+        @Html.TextBox("SearchString")
+
+        <input type="submit" value="Search Customer" class="btn btn-primary" />
+    </p>
+
+}
+<hr />
+<table class="table table-bordered table-sm">
+    <tr class="bg-info text-light tr_font">
+        <th>SqNo.</th>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            Date of Birth
+        </th>
+        <th>
+            Email Address
+        </th>
+        <th>
+            Image Name
+        </th>
+        <th>
+            Image
+        </th>
+        <th></th>
+    </tr>
+    @{ int count = 0;
+        foreach (var item in Model)
+        {
+            count++;
+            <tr class="tr_font">
+                <td>@count</td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.DOB))
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageName)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.ImageUrl)" alt=@item.ImageName width="50" height="50" />
+
+                </td>
+                <td>
+                    <a href="#" name="details" onclick="DetailsRecord('+@item.Id+')">Details</a>|
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, SortOrder = ViewBag.CurrentSort, CurrentFilter = ViewBag.CurrentFilter }))
+
+<div id="partialDiv">
+    @if (ViewBag.Details == "Show")
+    {
+        @Html.Partial("_CustomerDetails", Model)
+        ViewBag.Details = "";
+    }
+
+</div>
+
+<script>
+    function DetailsRecord(id) {
+        $.ajax({
+            url: "/Customer/Details?Id=" + id,
+            type: 'GET',
+            data: "",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#partialDiv").show();
+                $("#partialDiv").html(data);
+            },
+            error: function () {
+                alert("Error occured");
+            }
+        })
+    }
+
+</script>
